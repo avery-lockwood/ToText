@@ -25,9 +25,6 @@
   <ItemGroup>
     <ClInclude Include="ToTxt.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Downloads\anivl.png" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

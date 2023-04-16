@@ -1,10 +1,10 @@
-
 #include <opencv2\imgcodecs.hpp>
 #include <opencv2\highgui.hpp>
 #include <opencv2\imgproc.hpp>
 #include <iostream>
 #include <Windows.h>
-
+#include <fstream>
+#include <algorithm>
 #include "ToTxt.h"
 
 
@@ -107,6 +107,57 @@ string imgTxtWithScript(string path, string scriptPath, int Sx, int Sy) {
 }
 */
 //unfinished, replace " " with "_"in script fro image clairity
+string imgTxtWithScript(string path, string scriptPath, int Sx, int Sy) {
+
+	Mat img = imread(path);
+
+	string content;
+	ifstream input_file(scriptPath, ifstream::in);
+
+	if (!input_file.is_open()) {
+		cout << "failed to open " << scriptPath << '\n';
+		return "failed";
+	}
+	else {
+
+		Mat  re;
+
+		//Mat blur, canny;
+
+		//GaussianBlur(img, blur, Size(7, 7), 5, 0);
+
+		//Canny(blur, canny, 25, 25);
+
+		resize(img, re, Size(Sx, Sy), 0, 0, 1);
+
+		string frame;
+
+		char cch;
+
+		for (int y = 0; y < Sy; y++) {
+			for (int x = 0; x < Sx; x++) {
+				unsigned char* p = re.ptr(y, x);
+				if (p[0] < 200) {
+					cch = input_file.get();
+					while (cch == '\n' || cch == ' ' || cch == '\t') {
+						cch = input_file.get();
+					}
+
+					frame += cch;
+
+				}
+				else {
+					frame += " ";
+				}
+			}
+			frame += '\n';
+		}
+
+		return frame;
+		input_file.close();
+	}
+
+}
 
 string CannyTxt(string path, int Sx, int Sy) {
 	Mat img = imread(path);
