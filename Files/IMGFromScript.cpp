@@ -12,11 +12,21 @@ using namespace cv;
 
 
 int main() {
+	string path;
+	string scriptPath;
+	int x;
+	int y;
 
+	cout << "enter the path of the .txt script file (ex: `Resources/scrpt.txt`)" << endl;
+	cin >> scriptPath;
+	cout << "enter the path of the image file (ex: `Resources/anvil.png`)" << endl;
+	cin >> path;
 
-	string path = "Resources/anvil.png";
-	string scriptPath = "Resources/scrpt.txt";
-	int y = 24;
-	int x = 101;
+	cout << "enter the width of the image you would like to generate" << endl;
+	cin >> x;
+
+	cout << "enter the height of the image you would like to generate" << endl;
+	cin >> y;
+
 	cout << imgTxtWithScript(path,scriptPath, x, y);
 }
