@@ -11,6 +11,35 @@
 using namespace std;
 using namespace cv;
 
+wstring s2ws(const string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
+
+void ExtKey() {
+
+	Sleep(1000);
+	INPUT ip;
+	// ...
+		// Set up a generic keyboard event.
+	ip.type = INPUT_KEYBOARD;
+	ip.ki.wScan = 0; // hardware scan code for key
+	ip.ki.time = 0;
+	ip.ki.dwExtraInfo = 0;
+
+	// Press the "A" key
+	ip.ki.wVk = 0x1B; // virtual-key code for the "esc" key
+	ip.ki.dwFlags = 0; // 0 for key press
+	SendInput(1, &ip, sizeof(INPUT));
+}
+
 string imgTxt(string path, int Sx, int Sy) {
 
 	Mat img = imread(path);
@@ -74,40 +103,12 @@ string imgTxt2(string path, int Sx, int Sy) {
 	return frame;
 
 }
-/*
-string imgTxtWithScript(string path, string scriptPath, int Sx, int Sy) {
 
-	Mat img = imread(path);
-	Mat  re;
-	//Mat blur, canny;
+string imgScript(string path, string scriptPath, int Sx, int Sy) {
 
+	path.erase(remove(path.begin(), path.end(), '"'), path.end());
 
-	//GaussianBlur(img, blur, Size(7, 7), 5, 0);
-
-	//Canny(blur, canny, 25, 25);
-
-	resize(img, re, Size(Sx, Sy), 0, 0, 1);
-	string frame;
-
-	for (int y = 0; y < Sy; y++) {
-		for (int x = 0; x < Sx; x++) {
-			unsigned char* p = re.ptr(y, x);
-			if (p[0] < 200) {
-				char cch = 'a' + rand() % 26;
-				frame += cch;
-			}
-			else {
-				frame += " ";
-			}
-		}
-		frame += '\n';
-	}
-
-	return frame;
-}
-*/
-//unfinished, replace " " with "_"in script fro image clairity
-string imgTxtWithScript(string path, string scriptPath, int Sx, int Sy) {
+	scriptPath.erase(remove(scriptPath.begin(), scriptPath.end(), '"'), scriptPath.end());
 
 	Mat img = imread(path);
 
@@ -218,31 +219,12 @@ String VidTxt(Mat re,int Sx, int Sy) {
 	return frame;
 }
 
-wstring s2ws(const string& s)
-{
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len];
-	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-	std::wstring r(buf);
-	delete[] buf;
-	return r;
+String list(){
+	return "-edge + \"inputs for canny & dilation\" = detect edges (inputs uptional, if none then defaults are used"
+		"-image + \"/imagepath\""
+		"-script + \"/scriptpath\""
+		"-video + \"/vidpath\"";
 }
 
-void ExtKey() {
 
-	Sleep(1000);
-	INPUT ip;
-	// ...
-		// Set up a generic keyboard event.
-	ip.type = INPUT_KEYBOARD;
-	ip.ki.wScan = 0; // hardware scan code for key
-	ip.ki.time = 0;
-	ip.ki.dwExtraInfo = 0;
 
-	// Press the "A" key
-	ip.ki.wVk = 0x1B; // virtual-key code for the "esc" key
-	ip.ki.dwFlags = 0; // 0 for key press
-	SendInput(1, &ip, sizeof(INPUT));
-}

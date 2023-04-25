@@ -18,7 +18,7 @@
     <ClCompile Include="ToTxt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Files\IMGFromScript.cpp">
+    <ClCompile Include="Files\ToTextCommandLineTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
