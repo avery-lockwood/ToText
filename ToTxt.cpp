@@ -104,7 +104,7 @@ string imgTxt2(string path, int Sx, int Sy) {
 
 }
 
-string imgScript(string path, string scriptPath, int Sx, int Sy) {
+string imgScript(string path, string scriptPath, int Sx, int Sy, bool can) {
 
 	path.erase(remove(path.begin(), path.end(), '"'), path.end());
 
@@ -122,12 +122,17 @@ string imgScript(string path, string scriptPath, int Sx, int Sy) {
 	else {
 
 		Mat  re;
+		if (can) {
+			Mat blur, canny;
 
-		//Mat blur, canny;
+			GaussianBlur(img, blur, Size(7, 7), 5, 0);
 
-		//GaussianBlur(img, blur, Size(7, 7), 5, 0);
+			Canny(blur, canny, 25, 25);
 
-		//Canny(blur, canny, 25, 25);
+			cout << "could";
+			imshow("canny", canny);
+			waitKey();
+		}
 
 		resize(img, re, Size(Sx, Sy), 0, 0, 1);
 
