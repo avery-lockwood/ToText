@@ -1,7 +1,7 @@
 # ToText
 Create bitmap art from any image, video, or even live feed from your webcam!
 
-This was one of my early c++ learning projects so some practices may not be consistent.
+This was my first c++ learning project so some practices are not consistent.
 
 .exe files should work in windows without libraries as long as you have a compiler set up, but if you want to run more of the code, you have to set up the opencv library opencv in your development environment
 
